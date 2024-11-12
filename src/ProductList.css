@@ -107,6 +107,11 @@ body {
     margin-top: 10px;
 }
 
+.product-button.added {
+  background-color: grey; /* Grey background when item is added */
+  color: white; /* Adjust text color for visibility */
+}
+
 .product-button:hover {
     background-color: #c0392b;
 }

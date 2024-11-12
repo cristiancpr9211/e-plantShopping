@@ -21,7 +21,8 @@ const calculateTotalAmount = () => {
 };
 
   const handleContinueShopping = (e) => {
-    
+    e.preventDefault();
+    onContinueShopping();
   };
 
   const handleCheckoutShopping = (e) => {
