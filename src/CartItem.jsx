@@ -8,28 +8,65 @@ const CartItem = ({ onContinueShopping }) => {
   const dispatch = useDispatch();
 
   // Calculate total amount for all products in the cart
-  const calculateTotalAmount = () => {
- 
-  };
+const calculateTotalAmount = () => {
+  const total = cart.reduce((total, item) => {
+    // Remove the dollar sign and convert to a number
+    const cost = parseFloat(item.cost.replace('$', '')) || 0; // Removes the dollar sign and converts to number
+    const quantity = Number(item.quantity) || 0; // Ensure quantity is valid
+
+    return total + (cost * quantity); // Add the calculated cost for this item
+  }, 0);
+
+  return total.toFixed(2); // Return the total cost, formatted to 2 decimal places
+};
 
   const handleContinueShopping = (e) => {
-   
+    
   };
 
+  const handleCheckoutShopping = (e) => {
+  alert('Functionality to be added for future reference');
+};
 
 
   const handleIncrement = (item) => {
+      const updatedQuantity = item.quantity + 1;
+  
+  // Dispatch the updateQuantity action with the item name and the updated quantity
+  dispatch(updateQuantity({ name: item.name, quantity: updatedQuantity }));
   };
 
   const handleDecrement = (item) => {
-   
-  };
+  if (item.quantity > 1) {
+    // If quantity is greater than 1, decrement by 1
+    const updatedQuantity = item.quantity - 1;
+    dispatch(updateQuantity({ name: item.name, quantity: updatedQuantity }));
+  } else if (item.quantity === 1) {
+    // If quantity is 1, just decrement (no removal)
+    const updatedQuantity = item.quantity - 1;
+    dispatch(updateQuantity({ name: item.name, quantity: updatedQuantity }));
+  } else if (item.quantity === 0) {
+    // If quantity is 0, remove the item from the cart
+    dispatch(removeItem(item.name));
+  }
+};
 
   const handleRemove = (item) => {
+    dispatch(removeItem(item.name));
   };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+// Remove the dollar sign and parse the remaining string as a float
+  const cost = parseFloat(item.cost.replace('$', '')) || 0; // Remove '$' and convert to number
+  const quantity = parseInt(item.quantity, 10) || 1; // Ensure quantity is a valid number
+
+  if (isNaN(cost) || isNaN(quantity)) {
+    console.error('Invalid cost or quantity!');
+    return '0.00'; // Return a fallback value if invalid
+  }
+
+  return (cost * quantity).toFixed(2); // Format total cost to 2 decimal places
   };
 
   return (
