@@ -263,8 +263,9 @@ const handleAddToCart = (product) => {
      }));
   };
 
-   const handleContinueShopping = () => {
-    navigate('./ProductList.jsx');
+   const handleContinueShopping = (e) => {
+    e.preventDefault();
+    setShowCart(false);
   };
     return (
         <div>
